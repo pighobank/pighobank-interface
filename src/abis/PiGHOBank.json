@@ -208,6 +208,11 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_depositor",
+        "type": "address"
+      },
+      {
         "internalType": "uint256",
         "name": "_depositIndex",
         "type": "uint256"
