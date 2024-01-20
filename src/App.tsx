@@ -13,6 +13,7 @@ function Header() {
         <h1 className={'pt-2 font-medium text-3xl tracking-wide'}>PI<span className={'typog text-2xl'}>GHO</span>BANK</h1>
       </div>}
       <ConnectKitButton/>
+
     </header>
   );
 }
