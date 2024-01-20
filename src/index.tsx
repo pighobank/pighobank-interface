@@ -35,7 +35,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <WagmiConfig config={wagmiConfig}>
-        <ConnectKitProvider>
+        <ConnectKitProvider theme="retro" >
           <App />
         </ConnectKitProvider>
       </WagmiConfig>
