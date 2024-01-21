@@ -35,16 +35,17 @@ const Home = () => {
   }
 
   if (deposits === undefined) {
-    return <Spinner />;
+    return <div className={'h-[90vh] flex justify-center items-center'}><Spinner /></div>;
   }
 
   if (deposits.length === 0) {
     return (
       <div
         className={
-          "flex flex-col gap-12 justify-center items-center sm:pt-12 lg:mt-48"
+          "flex flex-col gap-12 justify-center items-center h-[90vh]"
         }
       >
+        <img src={"/img/urban-683.png"} className={"opacity-90 w-[400px] -mb-12"} alt="logo"/>
         You don't have any saving accounts.
         <button
           type="button"
@@ -64,7 +65,8 @@ const Home = () => {
   }
 
   return (
-    <div className={"flex flex-col gap-12 justify-center items-center"}>
+    <div className={'flex justify-center pt-24'}>
+    <div className={"flex flex-col gap-12 justify-center items-center w-[780px] list-wrappergit py-16"}>
       <h2 className={"text-2xl font-bold "}>Your Saving Accounts</h2>
       <div className={"flex gap-4 flex-col justify-center "}>
         <div className="flex text-xs">
@@ -143,6 +145,7 @@ const Home = () => {
         emergencyDepositItem={emergencyDepositItem}
         setEmergencyDepositItem={setEmergencyDepositItem}
       />
+    </div>
     </div>
   );
 };
