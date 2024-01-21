@@ -26,6 +26,8 @@ export function getWithdrawableAmount(deposit: Deposit | null | undefined) {
   currentPeriod =
     currentPeriod > deposit.periods ? deposit.periods : currentPeriod;
   return (
-    (currentPeriod * deposit.amount) / deposit.periods - deposit.withdrawnAmount
+    (currentPeriod * deposit.amount) / deposit.periods +
+    deposit.emergencyReleaseAmount -
+    deposit.withdrawnAmount
   );
 }
