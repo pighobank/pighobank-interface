@@ -9,6 +9,7 @@ import { createConfig, WagmiConfig } from "wagmi";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
+import { DepositsContextProvider } from "contexts/DepositsContext";
 
 if (!process.env.REACT_APP_WALLETCONNECT_PROJECT_ID) {
   throw new Error("REACT_APP_WALLETCONNECT_PROJECT_ID not provided");
@@ -35,8 +36,10 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <WagmiConfig config={wagmiConfig}>
-        <ConnectKitProvider theme="retro" >
-          <App />
+        <ConnectKitProvider theme="retro">
+          <DepositsContextProvider>
+            <App />
+          </DepositsContextProvider>
         </ConnectKitProvider>
       </WagmiConfig>
     </BrowserRouter>

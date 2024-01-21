@@ -4,11 +4,10 @@ import {
   piGhoBankABI,
   usePiGhoBankGetDepositsCount,
 } from "abis/types/generated";
-import {useCallback, useEffect, useState} from "react";
+import { useCallback, useEffect, useState } from "react";
 import { multicall } from "@wagmi/core";
 import { Deposit } from "types";
 import { useAccount } from "wagmi";
-import {Address} from "viem";
 
 export default function useDeposits() {
   const piGHOBankContractAddress = useContractAddress(
@@ -23,8 +22,9 @@ export default function useDeposits() {
   const [deposits, setDeposits] = useState<Deposit[] | undefined>(undefined);
 
   const refreshDeposits = useCallback(() => {
-    if (!piGHOBankContractAddress || !address || depositsLength === undefined) return;
-    if (depositsLength === 0n) {
+    if (!piGHOBankContractAddress || !address || depositsLength === undefined)
+      return;
+    if (depositsLength === BigInt(0)) {
       setDeposits([]);
       return;
     }
@@ -35,29 +35,29 @@ export default function useDeposits() {
         address: piGHOBankContractAddress,
         abi: piGhoBankABI,
         functionName: "deposits",
-        args: [BigInt(index)],
+        args: [address, BigInt(index)],
       })),
     }).then((res) =>
       setDeposits(
         res.map((depositData, index) => ({
           index,
-          amount: depositData[0];
-          depositTimestamp: depositData[1];
-          withdrawnAmount: depositData[2];
-          emergencyReleaseSigner: depositData[3];
-          emergencyReleaseAmount: depositData[4];
-          periods: depositData[5];
+          amount: depositData[0],
+          depositTimestamp: depositData[1],
+          withdrawnAmount: depositData[2],
+          emergencyReleaseSigner: depositData[3],
+          emergencyReleaseAmount: depositData[4],
+          periods: depositData[5],
         }))
       )
     );
   }, [piGHOBankContractAddress, address, depositsLength]);
 
   useEffect(() => {
-    refreshDeposits()
-  }, [piGHOBankContractAddress, address, depositsLength]);
+    refreshDeposits();
+  }, [piGHOBankContractAddress, address, depositsLength, refreshDeposits]);
 
   return {
     deposits,
-    refreshDeposits
+    refreshDeposits,
   };
 }
