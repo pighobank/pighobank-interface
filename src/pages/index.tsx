@@ -90,7 +90,7 @@ const Home = () => {
       <h2 className={"text-2xl font-bold "}>Your saving accounts:</h2>
       <div className={"flex gap-4 flex-col justify-center "}>
         <div className="flex text-xs">
-          <div className="mx-2 w-32">Deposit amount</div>
+          <div className="pl-2 mx-2 w-32">Deposit amount</div>
           <div className="mx-2 w-32">Withdrawn amount</div>
           <div className="mx-2 w-32">Available to withdraw</div>
           <div className="mx-2 w-20">Periods</div>
