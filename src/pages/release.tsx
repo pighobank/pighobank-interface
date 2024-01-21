@@ -41,21 +41,21 @@ const Release = () => {
     <div className={"flex flex-col gap-12 justify-center items-center"}>
       <h2 className={"text-2xl font-bold "}>Saving account details:</h2>
       <div className={"flex gap-4 flex-col justify-center "}>
-        <div className="flex">
+        <div className="flex text-xs">
           <div className="mx-2">Deposit amount</div>
           <div className="mx-2">Withdrawn amount</div>
-          <div className="mx-2">Available to withdraw amount</div>
+          <div className="mx-2">Available to withdraw</div>
           <div className="mx-2">Periods</div>
           <div className="mx-2">Start Time</div>
         </div>
         <div
           className={
-            "flex gap-4 bg-gray-800 border-2 shadow-inner py-4 px-4  rounded-lg"
+            "flex gap-4 flex items-center sa-card py-4 px-4 rounded-lg"
           }
         >
           <div className="mx-2">{savingAccount.depositAmount} GHO</div>
           <div className="mx-2">{savingAccount.withdrawnAmount} GHO</div>
-          <div className="mx-2">
+          <div className="mx-2 w-28">
             {savingAccount.availableToWithdrawAmount} GHO
           </div>
           <div className="mx-2">{savingAccount.periods}</div>
@@ -63,7 +63,7 @@ const Release = () => {
         </div>
       </div>
 
-      <div className={"bg-yellow-100 rounded-xl text-black p-12"}>
+      <div className={"pgo-modal flex flex-col gap-6"}>
         <label
           htmlFor="first_name"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"

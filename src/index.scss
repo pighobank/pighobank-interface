@@ -20,6 +20,18 @@ body {
   @apply text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2
 }
 
+.pgo-modal {
+  //box-shadow: inset 5px 5px 18px #949494,
+  //inset -5px -5px 18px #000000;
+  background: lightgrey;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+  @apply rounded-xl p-12 max-w-xl min-w-[400px]
+}
+
+.sa-card {
+  @apply bg-stone-800
+}
+
 .link {
   @apply text-blue-500 underline
 }

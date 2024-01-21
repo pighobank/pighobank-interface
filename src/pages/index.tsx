@@ -68,7 +68,7 @@ const Home = () => {
     return (
       <div
         className={
-          "flex flex-col gap-12 justify-center items-center sm:pt-12 lg:pt-48"
+          "flex flex-col gap-12 justify-center items-center sm:pt-12 lg:mt-48"
         }
       >
         You don't have any saving accounts.
@@ -76,7 +76,7 @@ const Home = () => {
           type="button"
           onClick={() => setShowModal(true)}
           className="px-6 py-3.5 text-base font-medium text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br
-                focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80
+                 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80
                 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
         >
           Add New Account
@@ -89,30 +89,32 @@ const Home = () => {
     <div className={"flex flex-col gap-12 justify-center items-center"}>
       <h2 className={"text-2xl font-bold "}>Your saving accounts:</h2>
       <div className={"flex gap-4 flex-col justify-center "}>
-        <div className="flex">
-          <div className="mx-2">Deposit amount</div>
-          <div className="mx-2">Withdrawn amount</div>
-          <div className="mx-2">Available to withdraw amount</div>
-          <div className="mx-2">Periods</div>
-          <div className="mx-2">Start Time</div>
+        <div className="flex text-xs">
+          <div className="mx-2 w-32">Deposit amount</div>
+          <div className="mx-2 w-32">Withdrawn amount</div>
+          <div className="mx-2 w-32">Available to withdraw</div>
+          <div className="mx-2 w-20">Periods</div>
+          <div className="mx-2 w-32">Start Time</div>
         </div>
         {savingAccounts.map((account, index) => (
           <div
             key={index}
             className={
-              "flex gap-4 bg-gray-800 border-2 shadow-inner py-4 px-4  rounded-lg"
+              "flex gap-4 flex-col items-center sa-card py-4 px-4 rounded-lg"
             }
           >
-            <div className="mx-2">{account.depositAmount} GHO</div>
-            <div className="mx-2">{account.withdrawnAmount} GHO</div>
-            <div className="mx-2">{account.availableToWithdrawAmount} GHO</div>
-            <div className="mx-2">{account.periods}</div>
-            <div className="mx-2">{account.startTime.toLocaleString()}</div>
+            <div className={'flex w-full justify-between'}>
+            <div className="mx-2 w-28">{account.depositAmount} GHO</div>
+            <div className="mx-2 w-32">{account.withdrawnAmount} GHO</div>
+            <div className="mx-2 w-32">{account.availableToWithdrawAmount} GHO</div>
+            <div className="mx-2 w-20">{account.periods}</div>
+            <div className="mx-2 ">{account.startTime.toLocaleString()}</div>
+            </div>
+            <div className={'flex gap-4 w-full justify-end'}>
             <button
               type="button"
               onClick={() => setWithdrawIndex(index)}
-              className="px-6 py-3.5 text-base font-medium text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br
-                focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80
+              className="px-3 py-2 text-sm font-medium text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200
                 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
             >
               Withdraw
@@ -120,12 +122,12 @@ const Home = () => {
             <button
               type="button"
               onClick={() => setEmergencyIndex(index)}
-              className="px-6 py-3.5 text-base font-medium text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br
-                focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80
+              className="px-3 py-2 text-sm font-medium font-medium text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200
                 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
             >
               Emergency withdrawal
             </button>
+            </div>
           </div>
         ))}
       </div>
@@ -134,14 +136,14 @@ const Home = () => {
         type="button"
         onClick={() => setShowModal(true)}
         className="px-6 py-3.5 text-base font-medium text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br
-                focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80
+                 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80
                 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
       >
         Add New Account
       </button>
 
       <div
-        id="authentication-modal"
+        id="create-modal"
         className={
           showModal
             ? "overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
@@ -152,19 +154,19 @@ const Home = () => {
         <div className="inset-0 p-4 w-full  max-w-md max-h-full">
           <div
             className={
-              "bg-gray-800/50 absolute inset-0   backdrop-blur-sm justify-center items-center flex"
+              "bg-gray-800/50 absolute inset-0 backdrop-blur-sm justify-center items-center flex"
             }
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              className={"bg-yellow-100 rounded-xl text-black p-12"}
+              className={"pgo-modal flex flex-col gap-6"}
             >
               <div>
                 <label
                   htmlFor="amount"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white flex justify-between"
                 >
-                  Balance: 100 GHO
+                  How much do you want to deposit? <span className={'text-gray-600 font-normal'}>Balance: 100 GHO</span>
                 </label>
                 <input
                   type="text"
@@ -210,7 +212,7 @@ const Home = () => {
               <button
                 type="button"
                 className="px-6 py-3.5 text-base font-medium text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br
-                focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80
+                 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80
                 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
               >
                 Create deposit
@@ -237,9 +239,10 @@ const Home = () => {
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              className={"bg-yellow-100 rounded-xl text-black p-12"}
+              className={"pgo-modal"}
             >
-              <div>
+              <div className={'flex flex-col gap-6'}>
+                <div>
                 <label
                   htmlFor="first_name"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -252,11 +255,11 @@ const Home = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Amount to withdraw"
                   required
-                />
+                /> </div>
                 <button
                   type="button"
                   className="px-6 py-3.5 text-base font-medium text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br
-                focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80
+                 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80
                 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                 >
                   Withdraw
@@ -279,19 +282,24 @@ const Home = () => {
         <div className="inset-0 p-4 w-full  max-w-md max-h-full">
           <div
             className={
-              "bg-gray-800/50 absolute inset-0   backdrop-blur-sm justify-center items-center flex"
+              "bg-gray-800/50 absolute inset-0 backdrop-blur-sm justify-center items-center flex"
             }
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              className={"bg-yellow-100 rounded-xl text-black p-12"}
+              className={"pgo-modal text-black"}
             >
               <div>
                 To increase your available amount to withdraw, please send this
                 link to your emergency contact and ask them to enter the amount
                 you need:
                 <br />
-                {`${window.location.origin}/release/${address}/${emergencyIndex}`}
+                <div className={'flex mt-4 items-center gap-2'}>
+                  <div className={''}>{`${window.location.origin}/release/${address}/${emergencyIndex}`.substring(0, 46)}...</div>
+                  <button type="button"
+                          className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 0 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">copy
+                  </button>
+                </div>
               </div>
             </div>
           </div>
