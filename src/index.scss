@@ -12,6 +12,13 @@ body {
   @apply bg-background-color text-font-color;
 }
 
+.list-wrapper {
+  border-radius: 24px;
+  background: #1c1c1c;
+  //box-shadow:  5px 5px 10px #111111,
+  //-5px -5px 10px #1d1d1d;
+}
+
 .typog {
   font-family: 'Nabla', system-ui;
 }
