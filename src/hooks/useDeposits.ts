@@ -7,16 +7,16 @@ import {
 import { useEffect, useState } from "react";
 import { multicall } from "@wagmi/core";
 import { Deposit } from "types";
-import { useAccount, useBlockNumber } from "wagmi";
+import { useBlockNumber } from "wagmi";
+import { Address } from "viem";
 
-export default function useDeposits() {
+export default function useDeposits(depositor: Address | undefined) {
   const piGHOBankContractAddress = useContractAddress(
     PIGHOBANK_CONTRACT_ADDRESS_MAP
   );
-  const { address } = useAccount();
   const { data: depositsLength } = usePiGhoBankGetDepositsCount({
     address: piGHOBankContractAddress,
-    args: address ? [address] : undefined,
+    args: depositor ? [depositor] : undefined,
     watch: true,
   });
 
@@ -25,7 +25,7 @@ export default function useDeposits() {
   const { data: blockNumber } = useBlockNumber();
 
   useEffect(() => {
-    if (!piGHOBankContractAddress || !address || depositsLength === undefined)
+    if (!piGHOBankContractAddress || !depositor || depositsLength === undefined)
       return;
     if (depositsLength === BigInt(0)) {
       setDeposits([]);
@@ -38,7 +38,7 @@ export default function useDeposits() {
         address: piGHOBankContractAddress,
         abi: piGhoBankABI,
         functionName: "deposits",
-        args: [address, BigInt(index)],
+        args: [depositor, BigInt(index)],
       })),
     }).then((res) =>
       setDeposits(
@@ -53,7 +53,7 @@ export default function useDeposits() {
         }))
       )
     );
-  }, [piGHOBankContractAddress, address, depositsLength, blockNumber]);
+  }, [piGHOBankContractAddress, depositor, depositsLength, blockNumber]);
 
   return {
     deposits,

@@ -1,5 +1,6 @@
 import React, { createContext, ReactNode, useContext } from "react";
 import useDeposits from "hooks/useDeposits";
+import { useAccount } from "wagmi";
 
 // Define the context
 const DepositsContext = createContext<ReturnType<typeof useDeposits> | null>(
@@ -14,7 +15,8 @@ interface ProviderProps {
 export const DepositsContextProvider: React.FC<ProviderProps> = ({
   children,
 }) => {
-  const data = useDeposits();
+  const { address } = useAccount();
+  const data = useDeposits(address);
   return (
     <DepositsContext.Provider value={data}>{children}</DepositsContext.Provider>
   );

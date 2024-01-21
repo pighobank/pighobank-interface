@@ -55,6 +55,10 @@ const Home = () => {
         >
           Add New Account
         </button>
+        <CreateDepositModal
+          showModal={showDepositModal}
+          setShowModal={setShowDepositModal}
+        />
       </div>
     );
   }
