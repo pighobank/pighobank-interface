@@ -47,3 +47,4 @@ root.render(
 );
 
 reportWebVitals();
+export { CreateDepositModal } from "components/CreateDepositModal";

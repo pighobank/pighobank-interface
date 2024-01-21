@@ -2,14 +2,6 @@ import React from "react";
 import { useAccount } from "wagmi";
 import { ConnectKitButton } from "connectkit";
 
-type AccountType = {
-  depositAmount: number;
-  withdrawnAmount: number;
-  availableToWithdrawAmount: number;
-  periods: number;
-  startTime: Date;
-};
-
 const Release = () => {
   const { address } = useAccount();
 
@@ -39,7 +31,7 @@ const Release = () => {
 
   return (
     <div className={"flex flex-col gap-12 justify-center items-center"}>
-      <h2 className={"text-2xl font-bold "}>Saving account details:</h2>
+      <h2 className={"text-ش2xl font-bold "}>Saving account details:</h2>
       <div className={"flex gap-4 flex-col justify-center "}>
         <div className="flex text-xs">
           <div className="mx-2">Deposit amount</div>

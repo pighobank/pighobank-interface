@@ -15,7 +15,11 @@ function Header() {
     >
       {address && (
         <div className={"flex items-center gap-2"}>
-          <img src={"/img/piggy.png"} className={"opacity-90 w-14"} />
+          <img
+            src={"/img/piggy.png"}
+            className={"opacity-90 w-14"}
+            alt="logo"
+          />
           <h1 className={"pt-2 font-medium text-3xl tracking-wide"}>
             PI<span className={"typog text-2xl"}>GHO</span>BANK
           </h1>
