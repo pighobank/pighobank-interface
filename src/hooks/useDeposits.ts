@@ -4,10 +4,10 @@ import {
   piGhoBankABI,
   usePiGhoBankGetDepositsCount,
 } from "abis/types/generated";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { multicall } from "@wagmi/core";
 import { Deposit } from "types";
-import { useAccount } from "wagmi";
+import { useAccount, useBlockNumber } from "wagmi";
 
 export default function useDeposits() {
   const piGHOBankContractAddress = useContractAddress(
@@ -17,11 +17,14 @@ export default function useDeposits() {
   const { data: depositsLength } = usePiGhoBankGetDepositsCount({
     address: piGHOBankContractAddress,
     args: address ? [address] : undefined,
+    watch: true,
   });
 
   const [deposits, setDeposits] = useState<Deposit[] | undefined>(undefined);
 
-  const refreshDeposits = useCallback(() => {
+  const { data: blockNumber } = useBlockNumber();
+
+  useEffect(() => {
     if (!piGHOBankContractAddress || !address || depositsLength === undefined)
       return;
     if (depositsLength === BigInt(0)) {
@@ -50,14 +53,9 @@ export default function useDeposits() {
         }))
       )
     );
-  }, [piGHOBankContractAddress, address, depositsLength]);
-
-  useEffect(() => {
-    refreshDeposits();
-  }, [piGHOBankContractAddress, address, depositsLength, refreshDeposits]);
+  }, [piGHOBankContractAddress, address, depositsLength, blockNumber]);
 
   return {
     deposits,
-    refreshDeposits,
   };
 }

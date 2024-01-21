@@ -48,3 +48,5 @@ root.render(
 
 reportWebVitals();
 export { CreateDepositModal } from "components/CreateDepositModal";
+export { EmergencyWithdrawModal } from "components/EmergencyWithdrawModal";
+export { WithdrawModal } from "components/WithdrawModal";

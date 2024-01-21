@@ -5,12 +5,17 @@ import { useDepositsContext } from "contexts/DepositsContext";
 import Spinner from "components/Spinner";
 import { CreateDepositModal } from "components/CreateDepositModal";
 import { formatGHOAmount, getWithdrawableAmount } from "utils";
+import { Deposit } from "types";
+import { EmergencyWithdrawModal } from "components/EmergencyWithdrawModal";
+import { WithdrawModal } from "components/WithdrawModal";
 
 const Home = () => {
   const { address } = useAccount();
   const [showDepositModal, setShowDepositModal] = useState(false);
-  const [withdrawIndex, setWithdrawIndex] = useState<number | null>(null);
-  const [emergencyIndex, setEmergencyIndex] = useState<number | null>(null);
+  const [withdrawDepositItem, setWithdrawDepositItem] =
+    useState<Deposit | null>(null);
+  const [emergencyDepositItem, setEmergencyDepositItem] =
+    useState<Deposit | null>(null);
   const { deposits } = useDepositsContext();
 
   if (!address) {
@@ -79,7 +84,7 @@ const Home = () => {
                 {formatGHOAmount(deposit.withdrawnAmount)} GHO
               </div>
               <div className="mx-2 w-32">
-                {formatGHOAmount(getWithdrawableAmount(deposit))} GHO
+                {formatGHOAmount(getWithdrawableAmount(deposit), 18)} GHO
               </div>
               <div className="mx-2 w-20">{String(deposit.periods)}</div>
               <div className="mx-2 ">
@@ -91,7 +96,7 @@ const Home = () => {
             <div className={"flex gap-4 w-full justify-end"}>
               <button
                 type="button"
-                onClick={() => setWithdrawIndex(index)}
+                onClick={() => setWithdrawDepositItem(deposit)}
                 className="px-3 py-2 text-sm font-medium text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200
                 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
               >
@@ -99,7 +104,7 @@ const Home = () => {
               </button>
               <button
                 type="button"
-                onClick={() => setEmergencyIndex(index)}
+                onClick={() => setEmergencyDepositItem(deposit)}
                 className="px-3 py-2 text-sm font-medium font-medium text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200
                 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
               >
@@ -125,96 +130,15 @@ const Home = () => {
         setShowModal={setShowDepositModal}
       />
 
-      <div
-        id="withdraw-modal"
-        className={
-          withdrawIndex !== null
-            ? "overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
-            : "hidden"
-        }
-        onClick={() => setWithdrawIndex(null)}
-      >
-        <div className="inset-0 p-4 w-full  max-w-md max-h-full">
-          <div
-            className={
-              "bg-gray-800/50 absolute inset-0   backdrop-blur-sm justify-center items-center flex"
-            }
-          >
-            <div onClick={(e) => e.stopPropagation()} className={"pgo-modal"}>
-              <div className={"flex flex-col gap-6"}>
-                <div>
-                  <label
-                    htmlFor="first_name"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Available amount: 100 GHO.
-                  </label>
-                  <input
-                    type="text"
-                    id="first_name"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Amount to withdraw"
-                    required
-                  />
-                </div>
-                <button
-                  type="button"
-                  className="px-6 py-3.5 text-base font-medium text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br
-                 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80
-                font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                >
-                  Withdraw
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <WithdrawModal
+        withdrawDepositItem={withdrawDepositItem}
+        setWithdrawDepositItem={setWithdrawDepositItem}
+      />
 
-      <div
-        id="emergency-modal"
-        className={
-          emergencyIndex !== null
-            ? "overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
-            : "hidden"
-        }
-        onClick={() => setEmergencyIndex(null)}
-      >
-        <div className="inset-0 p-4 w-full  max-w-md max-h-full">
-          <div
-            className={
-              "bg-gray-800/50 absolute inset-0 backdrop-blur-sm justify-center items-center flex"
-            }
-          >
-            <div
-              onClick={(e) => e.stopPropagation()}
-              className={"pgo-modal text-black"}
-            >
-              <div>
-                To increase your available amount to withdraw, please send this
-                link to your emergency contact and ask them to enter the amount
-                you need:
-                <br />
-                <div className={"flex mt-4 items-center gap-2"}>
-                  <div className={""}>
-                    {`${window.location.origin}/release/${address}/${emergencyIndex}`.substring(
-                      0,
-                      46
-                    )}
-                    ...
-                  </div>
-                  <button
-                    type="button"
-                    className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 0 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                  >
-                    copy
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <EmergencyWithdrawModal
+        emergencyDepositItem={emergencyDepositItem}
+        setEmergencyDepositItem={setEmergencyDepositItem}
+      />
     </div>
   );
 };
