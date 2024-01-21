@@ -34,7 +34,7 @@ export function EmergencyWithdrawModal({
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className={"pgo-modal text-black"}
+            className={"pgo-modal text-black rounded-xl p-12 max-w-xl min-w-[400px]"}
           >
             <div>
               To increase your available amount to withdraw, please send this

@@ -156,7 +156,7 @@ export function CreateDepositModal({
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className={"pgo-modal flex flex-col gap-6"}
+            className={"pgo-modal flex flex-col gap-6 rounded-xl p-12 max-w-xl min-w-[400px]"}
           >
             <div>
               <label

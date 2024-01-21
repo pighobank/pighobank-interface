@@ -160,7 +160,11 @@ const Release = () => {
         </div>
       </div>
 
-      <div className={"pgo-modal flex flex-col gap-6"}>
+      <div
+        className={
+          "pgo-modal flex flex-col gap-6 rounded-xl p-12 max-w-xl min-w-[400px]"
+        }
+      >
         <label
           htmlFor="first_name"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"

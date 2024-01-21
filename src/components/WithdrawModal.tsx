@@ -107,7 +107,7 @@ export function WithdrawModal({
             "bg-gray-800/50 absolute inset-0   backdrop-blur-sm justify-center items-center flex"
           }
         >
-          <div onClick={(e) => e.stopPropagation()} className={"pgo-modal"}>
+          <div onClick={(e) => e.stopPropagation()} className={"pgo-modal rounded-xl p-12 max-w-xl min-w-[400px]"}>
             <div className={"flex flex-col gap-6"}>
               <div>
                 <label
